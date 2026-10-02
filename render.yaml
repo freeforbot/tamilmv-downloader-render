@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: tamilmv-downloader
+    env: image
+    image:
+      url: sidmatka/tamilmv-downloader:latest
+    region: sgp
+    plan: free # Explicitly setting to free plan
+    envVars:
+      - key: TZ
+        value: Asia/Kolkata
+      - key: PORT
+        value: 8282

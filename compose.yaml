@@ -1,0 +1,23 @@
+services:
+  tamilmv-downloader:
+    image: sidmatka/tamilmv-downloader:latest
+    container_name: tamilmv-downloader
+    ports:
+      - "8282:8282"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - TZ=Asia/Kolkata
+    restart: unless-stopped
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=Asia/Kolkata
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_SCHEDULE=0 0 0 * * 0
+    command: tamilmv-downloader
+    restart: unless-stopped
